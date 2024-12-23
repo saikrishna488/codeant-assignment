@@ -47,14 +47,14 @@ const Right = () => {
   ];
 
   return (
-    <div className="min-h-screen w-full lg:w-1/2 bg-gradient-to-br from-blue-50 via-indigo-50 to-white">
+    <div className="min-h-screen w-full lg:w-1/2 lg:bg-gradient-to-br from-blue-50 via-indigo-50 to-white">
       <div className="flex min-h-screen w-full items-center justify-center p-4 sm:p-6 lg:p-8">
         <div className="w-full max-w-md space-y-8">
           {/* Main Card */}
-          <div className="relative overflow-hidden rounded-2xl bg-white/80 p-6 shadow-xl backdrop-blur-xl backdrop-filter transition-all duration-300 hover:shadow-2xl">
+          <div className="relative overflow-hidden rounded-2xl bg-white/80 p-6 lg:shadow-xl backdrop-blur-xl backdrop-filter transition-all duration-300 hover:shadow-2xl">
             {/* Background Decoration */}
-            <div className="absolute -right-16 -top-16 h-40 w-40 rounded-full bg-blue-100/50" />
-            <div className="absolute -bottom-16 -left-16 h-40 w-40 rounded-full bg-indigo-100/50" />
+            {/* <div className="absolute -right-16 -top-16 h-40 w-40 rounded-full bg-blue-100/50" />
+            <div className="absolute -bottom-16 -left-16 h-40 w-40 rounded-full bg-indigo-100/50" /> */}
             
             {/* Content */}
             <div className="relative">
