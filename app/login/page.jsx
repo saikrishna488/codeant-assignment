@@ -8,12 +8,9 @@ const page = () => {
 
   useEffect(()=>{
     
-    toast('Click any sign up option to visit next page', {
-      icon: '👆',
-    });
-    toast('Hello', {
-      icon: '😊',
-    });
+    setTimeout(()=>{
+      toast('Click any sign up option to visit next page');
+    },2000);
 
   },[])
   return (
