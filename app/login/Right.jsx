@@ -10,143 +10,131 @@ const Right = () => {
   const [selected, setSelected] = useState("SAAS");
   const router = useRouter();
 
+  const saasProviders = [
+    {
+      name: "Github",
+      icon: FaGithub,
+      class: "bg-gray-900 hover:bg-gray-800",
+    },
+    {
+      name: "Bitbucket",
+      icon: FaBitbucket,
+      class: "bg-blue-700 hover:bg-blue-600",
+    },
+    {
+      name: "Azure Devops",
+      icon: VscAzure,
+      class: "bg-blue-500 hover:bg-blue-400",
+    },
+    {
+      name: "Gitlabs",
+      icon: FaGitlab,
+      class: "bg-orange-600 hover:bg-orange-500",
+    },
+  ];
+
+  const selfHostedProviders = [
+    {
+      name: "Self Hosted Gitlab",
+      icon: FaGitlab,
+      class: "bg-orange-600 hover:bg-orange-500",
+    },
+    {
+      name: "SSO",
+      icon: FaKey,
+      class: "bg-gray-800 hover:bg-gray-700",
+    },
+  ];
+
   return (
-    <div className="lg:w-1/2 w-full min-h-screen bg-gradient-to-br from-blue-50 to-white flex lg:items-center justify-center lg:p-6 p-2">
-      <div className="flex flex-col items-center w-full max-w-md">
-        {/* Card wrapper */}
-        <div className="w-full bg-white rounded-2xl shadow-xl p-4 backdrop-blur-sm border border-gray-100">
-          {/* Header Section */}
-          <div className="mb-10">
-            <div className="flex items-center justify-center gap-3 mb-8 transform hover:scale-105 transition-transform">
-              <Logo />
-              <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
-                CodeAnt AI
-              </span>
-            </div>
-            <h4 className="text-3xl font-bold text-center text-gray-800 mb-10">
-              Welcome Back
-              <span className="block text-base font-normal text-gray-500 mt-2">
-                Choose your preferred platform to continue
-              </span>
-            </h4>
-            {/* Plan Selection */}
-            <div className="flex p-1.5 bg-gray-50 rounded-xl border border-gray-100">
-              <button
-                className={`flex-1 py-3 px-6 rounded-lg transition-all duration-300 font-medium flex text-sm items-center justify-center gap-2.5 ${
-                  selected === "SAAS"
-                    ? "bg-white text-blue-600 shadow-md transform -translate-y-0.5"
-                    : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
-                }`}
-                onClick={() => setSelected("SAAS")}
-              >
-                <BsCloud className="text-lg" />
-                SAAS
-              </button>
-              <button
-                className={`flex-1 py-3 px-6 rounded-lg transition-all duration-300 text-sm font-medium flex items-center justify-center gap-2.5 ${
-                  selected === "Self"
-                    ? "bg-white text-blue-600 shadow-md transform -translate-y-0.5"
-                    : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
-                }`}
-                onClick={() => setSelected("Self")}
-              >
-                <BsServer className="text-lg" />
-                Self Hosted
-              </button>
+    <div className="min-h-screen w-full lg:w-1/2 bg-gradient-to-br from-blue-50 via-indigo-50 to-white">
+      <div className="flex min-h-screen w-full items-center justify-center p-4 sm:p-6 lg:p-8">
+        <div className="w-full max-w-md space-y-8">
+          {/* Main Card */}
+          <div className="relative overflow-hidden rounded-2xl bg-white/80 p-6 shadow-xl backdrop-blur-xl backdrop-filter transition-all duration-300 hover:shadow-2xl">
+            {/* Background Decoration */}
+            <div className="absolute -right-16 -top-16 h-40 w-40 rounded-full bg-blue-100/50" />
+            <div className="absolute -bottom-16 -left-16 h-40 w-40 rounded-full bg-indigo-100/50" />
+            
+            {/* Content */}
+            <div className="relative">
+              {/* Logo Section */}
+              <div className="mb-8 transform cursor-pointer text-center transition-transform hover:scale-105">
+                <div className="flex items-center justify-center gap-3">
+                  <Logo />
+                  <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-2xl font-bold text-transparent">
+                    CodeAnt AI
+                  </span>
+                </div>
+              </div>
+
+              {/* Welcome Text */}
+              <div className="mb-10 text-center">
+                <h4 className="mb-2 text-3xl font-bold text-gray-800">
+                  Welcome Back
+                </h4>
+                <p className="text-sm text-gray-600">
+                  Choose your preferred platform to continue
+                </p>
+              </div>
+
+              {/* Platform Toggle */}
+              <div className="mb-8 rounded-xl bg-gray-200 p-1.5 backdrop-blur-sm">
+                <div className="grid grid-cols-2 gap-2">
+                  {["SAAS", "Self"].map((type) => (
+                    <button
+                      key={type}
+                      onClick={() => setSelected(type)}
+                      className={`flex items-center justify-center gap-2 rounded-lg py-3 text-sm font-medium transition-all duration-300 ${
+                        selected === type
+                          ? "bg-white text-blue-600 shadow-md"
+                          : "text-gray-600 hover:bg-gray-100/80 hover:text-gray-900"
+                      }`}
+                    >
+                      {type === "SAAS" ? (
+                        <BsCloud className="text-lg" />
+                      ) : (
+                        <BsServer className="text-lg" />
+                      )}
+                      {type === "SAAS" ? "SAAS" : "Self Hosted"}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Sign-in Options */}
+              <div className="space-y-3">
+                {(selected === "SAAS" ? saasProviders : selfHostedProviders).map((provider) => (
+                  <button
+                    key={provider.name}
+                    onClick={() => router.push("/repo")}
+                    className={`group relative w-full overflow-hidden rounded-xl ${provider.class} p-3.5 transition-all duration-300 hover:shadow-lg`}
+                  >
+                    <div className="relative flex items-center justify-center gap-3 text-white">
+                      <provider.icon className="text-xl transition-transform duration-300 group-hover:scale-110" />
+                      <span className="text-sm font-medium">
+                        Sign in with {provider.name}
+                      </span>
+                    </div>
+                    <div className="absolute inset-0 -z-10 bg-white/10 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
 
-          {/* Sign-in Options */}
-          {selected === "SAAS" ? (
-            <div className="w-full space-y-4">
-              {[
-                {
-                  name: "Github",
-                  icon: FaGithub,
-                  bgColor: "bg-gray-900",
-                  hoverColor: "hover:bg-gray-800",
-                  ringColor: "focus:ring-gray-500",
-                },
-                {
-                  name: "Bitbucket",
-                  icon: FaBitbucket,
-                  bgColor: "bg-blue-700",
-                  hoverColor: "hover:bg-blue-600",
-                  ringColor: "focus:ring-blue-400",
-                },
-                {
-                  name: "Azure Devops",
-                  icon: VscAzure,
-                  bgColor: "bg-blue-500",
-                  hoverColor: "hover:bg-blue-400",
-                  ringColor: "focus:ring-blue-300",
-                },
-                {
-                  name: "Gitlabs",
-                  icon: FaGitlab,
-                  bgColor: "bg-orange-600",
-                  hoverColor: "hover:bg-orange-500",
-                  ringColor: "focus:ring-orange-400",
-                },
-              ].map((provider) => (
-                <button
-                  key={provider.name}
-                  onClick={() => router.push("/repo")}
-                  className={`w-full ${provider.bgColor} ${provider.hoverColor} text-white py-3.5 px-4 rounded-xl
-                    font-medium text-sm transition-all duration-300 flex items-center justify-center gap-3
-                    shadow-sm hover:shadow-md transform hover:-translate-y-0.5 
-                    focus:ring-2 focus:ring-offset-2 ${provider.ringColor} outline-none`}
-                >
-                  <provider.icon className="text-xl" />
-                  Sign in with {provider.name}
-                </button>
-              ))}
-            </div>
-          ) : (
-            <div className="w-full space-y-4">
-              {[
-                {
-                  name: "Self Hosted Gitlab",
-                  icon: FaGitlab,
-                  bgColor: "bg-orange-600",
-                  hoverColor: "hover:bg-orange-500",
-                  ringColor: "focus:ring-orange-400",
-                },
-                {
-                  name: "SSO",
-                  icon: FaKey,
-                  bgColor: "bg-gray-800",
-                  hoverColor: "hover:bg-gray-700",
-                  ringColor: "focus:ring-gray-500",
-                },
-              ].map((provider) => (
-                <button
-                  key={provider.name}
-                  onClick={() => router.push("/repo")}
-                  className={`w-full ${provider.bgColor} ${provider.hoverColor} text-white py-3.5 px-4 rounded-xl
-                    font-medium transition-all duration-300 flex items-center justify-center gap-3
-                    shadow-sm hover:shadow-md transform hover:-translate-y-0.5 
-                    focus:ring-2 focus:ring-offset-2 ${provider.ringColor} outline-none`}
-                >
-                  <provider.icon className="text-xl" />
-                  Sign in with {provider.name}
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
-
-        {/* Footer */}
-        <div className="mt-8 text-center">
-          <small className="text-gray-500">
-            By signing up you agree to the{" "}
-            <a
-              href="#"
-              className="text-blue-600 hover:text-blue-700 underline font-medium transition-colors"
-            >
-              Privacy Policy
-            </a>
-          </small>
+          {/* Footer */}
+          <div className="text-center">
+            <small className="text-sm text-gray-500">
+              By signing up you agree to the{" "}
+              <a
+                href="#"
+                className="font-medium text-blue-600 transition-colors hover:text-blue-700 hover:underline"
+              >
+                Privacy Policy
+              </a>
+            </small>
+          </div>
         </div>
       </div>
     </div>

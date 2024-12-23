@@ -56,6 +56,11 @@ const Left = () => {
           </div>
         </div>
       </div>
+
+      {/* bg img */}
+      <div className=' absolute bottom-0 left-0 bg-[url("/bg.png")] bg-no-repeat bg-center  bg-contain h-[200px] w-[200px]'>
+
+      </div>
     </div>
   );
 };
